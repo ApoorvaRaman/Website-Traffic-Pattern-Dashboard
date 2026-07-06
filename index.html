@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRAFFIC/PATTERN.DASH — Website Traffic Pattern Dashboard</title>
+<meta name="description" content="Analyze web server logs to find peak traffic hours and busiest days of the week.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="scanlines" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="topbar__left">
+    <span class="live-dot" aria-hidden="true"></span>
+    <span class="topbar__title">TRAFFIC<span class="topbar__slash">/</span>PATTERN.DASH</span>
+  </div>
+  <div class="topbar__right">
+    <span class="topbar__source" id="sourceLabel">SOURCE: —</span>
+    <label class="btn btn--ghost" for="fileInput">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0-12 4 4m-4-4-4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      Upload log file
+    </label>
+    <input type="file" id="fileInput" accept=".log,.txt" hidden>
+    <button class="btn btn--outline" id="resetBtn" title="Return to sample dataset">Reset to sample</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="hero__eyebrow">Log analysis / hour &amp; weekday traffic modeling</div>
+    <h1 class="hero__headline">Find out exactly when your server sweats.</h1>
+    <p class="hero__sub">Point this at NASA-HTTP or Apache-format access logs and it reads the request timestamps to surface peak hours, the busiest weekday, and a full hour-by-day heatmap — no server, no database, nothing to pay for.</p>
+  </section>
+
+  <section class="kpis" id="kpiRow" aria-label="Key metrics">
+    <div class="kpi">
+      <div class="kpi__label">Peak hour</div>
+      <div class="kpi__value" id="kpiPeakHour">—</div>
+      <div class="kpi__hint">busiest 60-minute window</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi__label">Peak day</div>
+      <div class="kpi__value" id="kpiPeakDay">—</div>
+      <div class="kpi__hint">highest total requests</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi__label">Total requests</div>
+      <div class="kpi__value" id="kpiTotal">—</div>
+      <div class="kpi__hint" id="kpiTotalHint">parsed from log</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi__label">Days logged</div>
+      <div class="kpi__value" id="kpiDays">—</div>
+      <div class="kpi__hint" id="kpiDateRange">—</div>
+    </div>
+  </section>
+
+  <section class="grid-main">
+    <div class="panel panel--chart">
+      <div class="panel__head">
+        <h2>Traffic by hour of day</h2>
+        <span class="panel__tag">00:00 – 23:00, all days combined</span>
+      </div>
+      <div class="panel__body">
+        <canvas id="hourlyChart" height="220"></canvas>
+      </div>
+    </div>
+
+    <div class="panel panel--heatmap">
+      <div class="panel__head">
+        <h2>Hour × weekday heatmap</h2>
+        <span class="panel__tag">brighter = more requests</span>
+      </div>
+      <div class="panel__body">
+        <div id="heatmap" class="heatmap" role="img" aria-label="Heatmap of requests by hour and weekday"></div>
+        <div class="heatmap__legend">
+          <span>Quiet</span>
+          <div class="heatmap__scale" aria-hidden="true"></div>
+          <span>Peak</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel--chart">
+      <div class="panel__head">
+        <h2>Traffic by day of week</h2>
+        <span class="panel__tag">Monday → Sunday</span>
+      </div>
+      <div class="panel__body">
+        <canvas id="weekdayChart" height="220"></canvas>
+      </div>
+    </div>
+
+    <div class="panel panel--list">
+      <div class="panel__head">
+        <h2>Top requested paths</h2>
+        <span class="panel__tag">from parsed request lines</span>
+      </div>
+      <div class="panel__body">
+        <ol class="pathlist" id="pathList"></ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel panel--status" aria-label="HTTP status code breakdown">
+    <div class="panel__head">
+      <h2>Response status codes</h2>
+      <span class="panel__tag" id="statusTotalTag">—</span>
+    </div>
+    <div class="panel__body">
+      <div id="statusBars" class="statusbars"></div>
+    </div>
+  </section>
+
+  <section class="about">
+    <h2>How this works</h2>
+    <div class="about__grid">
+      <div>
+        <h3>01 · Parse</h3>
+        <p>A regular expression reads each line of a Common/Combined Log Format access log — the format used by both the 1995 NASA-HTTP logs and the Kaggle Apache logs dataset — and pulls out the request timestamp.</p>
+      </div>
+      <div>
+        <h3>02 · Aggregate</h3>
+        <p>Every request is bucketed by hour-of-day (0–23) and weekday (Mon–Sun), building a 7×24 matrix alongside simple hourly and weekday totals.</p>
+      </div>
+      <div>
+        <h3>03 · Render</h3>
+        <p>The aggregated JSON drives two bar charts and a heatmap — client-side only. Drop your own log above and it's parsed entirely in your browser; nothing is uploaded anywhere.</p>
+      </div>
+    </div>
+    <p class="about__note" id="statusNote"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <span>Static, client-side dashboard · Chart.js (BSD-3) · no backend, no database, hosted free on GitHub/Cloudflare Pages</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
