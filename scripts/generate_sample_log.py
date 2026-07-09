@@ -97,4 +97,4 @@ def main(out_path="data/sample_access.log", days=21, avg_requests_per_day=650):
 
 
 if __name__ == "__main__":
-    main()
+    main(out_path="data/sample_access.log", days=7, avg_requests_per_day=300)  
