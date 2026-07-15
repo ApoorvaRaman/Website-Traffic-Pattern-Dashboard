@@ -18,6 +18,7 @@
     const isLight = body.classList.toggle('light-mode');
     toggleBtn.textContent = isLight ? '☀️' : '🌙';
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    updateChartsForTheme();
   });
 })();
 
@@ -400,3 +401,29 @@ document.addEventListener("DOMContentLoaded", () => {
   wireUpload();
   loadDefaultDataset();
 });
+
+function getChartTextColor() {
+  return document.body.classList.contains('light-mode') ? '#2e2f3a' : '#a0a3b1';
+}
+
+function getGridColor() {
+  return document.body.classList.contains('light-mode') ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+}
+
+function updateChartsForTheme() {
+  const textColor = getChartTextColor();
+  const gridColor = getGridColor();
+
+  // Repeat this for each Chart.js instance you have (e.g. hourChart, weekdayChart)
+  [hourChart, weekdayChart].forEach(chart => {
+    if (!chart) return;
+    chart.options.scales.x.ticks.color = textColor;
+    chart.options.scales.y.ticks.color = textColor;
+    chart.options.scales.x.grid.color = gridColor;
+    chart.options.scales.y.grid.color = gridColor;
+    if (chart.options.plugins?.legend?.labels) {
+      chart.options.plugins.legend.labels.color = textColor;
+    }
+    chart.update();
+  });
+}
