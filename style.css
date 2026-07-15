@@ -1,6 +1,47 @@
 /* ============================================================
    TOKENS
    ============================================================ */
+#theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1000;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: inherit;
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#theme-toggle:hover {
+  background: rgba(255,255,255,0.16);
+  transform: scale(1.05);
+}
+
+/* Light mode overrides — adjust these variables to match your existing color scheme */
+body.light-mode {
+  background: #f5f6f8 !important;
+  color: #1a1a2e !important;
+}
+
+body.light-mode #theme-toggle {
+  background: rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+body.light-mode .card,
+body.light-mode [class*="panel"] {
+  background: #ffffff !important;
+  border-color: rgba(0,0,0,0.1) !important;
+  color: #1a1a2e !important;
+}
 :root {
   --bg: #0A0E12;
   --bg-panel: #121922;
