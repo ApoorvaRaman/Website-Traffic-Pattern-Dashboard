@@ -24,16 +24,37 @@
   background: rgba(255,255,255,0.16);
   transform: scale(1.05);
 }
-
-/* Light mode overrides — adjust these variables to match your existing color scheme */
+/* Light mode overrides */
 body.light-mode {
   background: #f5f6f8 !important;
   color: #1a1a2e !important;
 }
 
-body.light-mode #theme-toggle {
-  background: rgba(0,0,0,0.06);
-  border: 1px solid rgba(0,0,0,0.15);
+/* Primary headings and strong text — near-black */
+body.light-mode h1,
+body.light-mode h2,
+body.light-mode h3,
+body.light-mode .stat-value,
+body.light-mode strong {
+  color: #12131a !important;
+}
+
+/* Body/paragraph text — dark gray, not black (easier to read) */
+body.light-mode p,
+body.light-mode li,
+body.light-mode td {
+  color: #2e2f3a !important;
+}
+
+/* Muted/secondary labels — the ones that were disappearing.
+   This is the important fix: was probably something like #6b7280 or lighter,
+   which is too light against #f5f6f8. Bump it darker. */
+body.light-mode .label,
+body.light-mode .muted,
+body.light-mode small,
+body.light-mode [class*="subtitle"],
+body.light-mode [class*="caption"] {
+  color: #4b4d5c !important;
 }
 
 body.light-mode .card,
@@ -42,6 +63,7 @@ body.light-mode [class*="panel"] {
   border-color: rgba(0,0,0,0.1) !important;
   color: #1a1a2e !important;
 }
+
 :root {
   --bg: #0A0E12;
   --bg-panel: #121922;
