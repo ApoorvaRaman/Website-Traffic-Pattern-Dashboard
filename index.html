@@ -1,3 +1,24 @@
+
+
+Skip to content
+Using Gmail with screen readers
+1 of 11,145
+(no subject)
+Inbox
+msgay
+	
+Attachments11:33 (0 minutes ago)
+	
+	
+to me
+Index Updated 
+
+
+
+
+ One attachment
+  •  Scanned by Gmail
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,10 +48,14 @@
     </label>
     <input type="file" id="fileInput" accept=".log,.txt" hidden>
     <button class="btn btn--outline" id="resetBtn" title="Return to sample dataset">Reset to sample</button>
+    <button class="btn btn--outline" id="downloadSnapshotBtn" title="Download the whole dashboard as an image">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      <span id="downloadSnapshotBtnLabel">Download snapshot</span>
+    </button>
   </div>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="dashboardCapture">
 
   <section class="hero">
     <div class="hero__eyebrow">Log analysis / hour &amp; weekday traffic modeling</div>
@@ -156,7 +181,62 @@ HTTP Status Code 500 (Internal Server Error) means that the server encountered a
   <span>Static, client-side dashboard · Chart.js (BSD-3) · no backend, no database, hosted free on GitHub/Cloudflare Pages</span>
 </footer>
 
+<!-- html2canvas: captures any DOM element (including <canvas> charts) as a screenshot image -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script src="app.js"></script>
+
+<script>
+  // ---- Dashboard snapshot / export-as-image feature ----
+  (function () {
+    const btn = document.getElementById('downloadSnapshotBtn');
+    const btnLabel = document.getElementById('downloadSnapshotBtnLabel');
+    const target = document.getElementById('dashboardCapture'); // the <main class="wrap"> element
+
+    if (!btn || !target) return;
+
+    btn.addEventListener('click', async function () {
+      const originalLabel = btnLabel.textContent;
+      btn.disabled = true;
+      btnLabel.textContent = 'Capturing…';
+
+      try {
+        // Read the page's background color so the exported PNG isn't transparent/white
+        const bg = getComputedStyle(document.body).backgroundColor || '#05070a';
+
+        const canvas = await html2canvas(target, {
+          backgroundColor: bg,
+          scale: Math.min(2, window.devicePixelRatio || 1) * 1.5, // sharper output
+          useCORS: true,
+          logging: false
+        });
+
+        canvas.toBlob(function (blob) {
+          if (!blob) throw new Error('Canvas produced an empty image.');
+
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+          a.href = url;
+          a.download = `traffic-pattern-dashboard-${stamp}.png`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+        }, 'image/png');
+      } catch (err) {
+        console.error('Snapshot failed:', err);
+        alert('Sorry — could not generate the snapshot image. Please try again.');
+      } finally {
+        btn.disabled = false;
+        btnLabel.textContent = originalLabel;
+      }
+    });
+  })();
+</script>
+
 </body>
 </html>
+
+index.html
+Displaying index.html.
