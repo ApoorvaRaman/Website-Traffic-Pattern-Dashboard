@@ -3,6 +3,23 @@
    No backend: fetches a precomputed data/data.json by default,
    and can parse a user-uploaded log file entirely in-browser.
    ========================================================== */
+(function () {
+  const toggleBtn = document.getElementById('theme-toggle');
+  const body = document.body;
+
+  // Load saved preference
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') {
+    body.classList.add('light-mode');
+    toggleBtn.textContent = '☀️';
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const isLight = body.classList.toggle('light-mode');
+    toggleBtn.textContent = isLight ? '☀️' : '🌙';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+})();
 
 const WEEKDAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const WEEKDAY_SHORT = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
