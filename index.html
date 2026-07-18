@@ -140,7 +140,7 @@ HTTP Status Code 500 (Internal Server Error) means that the server encountered a
     <div class="about__grid">
       <div>
         <h3>01 · Parse</h3>
-        <p>A regular expression reads each line of a Common/Combined Log Format access log — the format used by both the 1995 NASA-HTTP logs and the Kaggle Apache logs dataset — and pulls out the request timestamp.</p>
+        <p>A regular expression reads each line of a Common/Combined Log Format access log - the format used by the 1995 NASA-HTTP logs and the Kaggle Apache logs dataset - and pulls out the request timestamp.</p>
       </div>
       <div>
         <h3>02 · Aggregate</h3>
@@ -148,7 +148,7 @@ HTTP Status Code 500 (Internal Server Error) means that the server encountered a
       </div>
       <div>
         <h3>03 · Render</h3>
-        <p>The aggregated JSON drives two bar charts and a heatmap — client-side only. Drop your own log above and it's parsed entirely in your browser; nothing is uploaded anywhere.</p>
+        <p>The aggregated JSON drives two bar charts and a heatmap - client-side only. Drop your own log above and it's parsed entirely in your browser; nothing is uploaded anywhere.</p>
       </div>
     </div>
     <p class="about__note" id="statusNote"></p>
@@ -157,7 +157,7 @@ HTTP Status Code 500 (Internal Server Error) means that the server encountered a
 </main>
 
 <footer class="footer">
-  <span>Static, client-side dashboard · Chart.js (BSD-3) · no backend, no database, hosted free on GitHub/Cloudflare Pages</span>
+  <span>Static, client-side dashboard · Chart.js (BSD-3) · no backend, no database</span>
 </footer>
 
 <!-- html2canvas: captures any DOM element (including <canvas> charts) as a screenshot image -->
@@ -170,7 +170,7 @@ HTTP Status Code 500 (Internal Server Error) means that the server encountered a
   (function () {
     const btn = document.getElementById('downloadSnapshotBtn');
     const btnLabel = document.getElementById('downloadSnapshotBtnLabel');
-    const target = document.getElementById('dashboardCapture'); // the <main class="wrap"> element
+    const target = document.getElementById('dashboardCapture'); 
 
     if (!btn || !target) return;
 
@@ -205,7 +205,7 @@ HTTP Status Code 500 (Internal Server Error) means that the server encountered a
         }, 'image/png');
       } catch (err) {
         console.error('Snapshot failed:', err);
-        alert('Sorry — could not generate the snapshot image. Please try again.');
+        alert('Sorry - could not generate the snapshot image. Please try again.');
       } finally {
         btn.disabled = false;
         btnLabel.textContent = originalLabel;
