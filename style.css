@@ -1,69 +1,6 @@
 /* ============================================================
    TOKENS
    ============================================================ */
-#theme-toggle {
-  position: fixed;
-  top: 75px;
-  right: 16px;
-  z-index: 1000;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: inherit;
-  font-size: 18px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-#theme-toggle:hover {
-  background: rgba(255,255,255,0.16);
-  transform: scale(1.05);
-}
-/* Light mode overrides */
-body.light-mode {
-  background: #f5f6f8 !important;
-  color: #1a1a2e !important;
-}
-
-/* Primary headings and strong text — near-black */
-body.light-mode h1,
-body.light-mode h2,
-body.light-mode h3,
-body.light-mode .stat-value,
-body.light-mode strong {
-  color: #12131a !important;
-}
-
-/* Body/paragraph text — dark gray, not black (easier to read) */
-body.light-mode p,
-body.light-mode li,
-body.light-mode td {
-  color: #2e2f3a !important;
-}
-
-/* Muted/secondary labels — the ones that were disappearing.
-   This is the important fix: was probably something like #6b7280 or lighter,
-   which is too light against #f5f6f8. Bump it darker. */
-body.light-mode .label,
-body.light-mode .muted,
-body.light-mode small,
-body.light-mode [class*="subtitle"],
-body.light-mode [class*="caption"] {
-  color: #4b4d5c !important;
-}
-
-body.light-mode .card,
-body.light-mode [class*="panel"] {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.1) !important;
-  color: #1a1a2e !important;
-}
-
 :root {
   --bg: #0A0E12;
   --bg-panel: #121922;
@@ -86,6 +23,12 @@ body.light-mode [class*="panel"] {
 
   --radius: 3px;
   --radius-lg: 6px;
+
+  color-scheme: dark;
+}
+
+body.light-mode {
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
@@ -133,6 +76,38 @@ a { color: var(--cyan); }
 :focus-visible {
   outline: 2px solid var(--amber);
   outline-offset: 2px;
+}
+
+/* ============================================================
+   THEME TOGGLE BUTTON
+   ============================================================ */
+#theme-toggle {
+  position: fixed;
+  top: 75px;
+  right: 16px;
+  z-index: 1000;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: inherit;
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#theme-toggle:hover {
+  background: rgba(255,255,255,0.16);
+  transform: scale(1.05);
+}
+
+body.light-mode #theme-toggle {
+  background: rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.15);
 }
 
 /* ============================================================
@@ -505,4 +480,123 @@ a { color: var(--cyan); }
   .topbar { padding: 12px 16px; }
   .wrap { padding: 0 16px 40px; }
   .hero { padding: 36px 0 24px; }
+}
+
+/* ============================================================
+   LIGHT MODE OVERRIDES
+   ============================================================ */
+body.light-mode {
+  background: #f5f6f8 !important;
+  color: #1a1a2e !important;
+}
+
+/* Primary headings and strong text — near-black */
+body.light-mode h1,
+body.light-mode h2,
+body.light-mode h3,
+body.light-mode strong {
+  color: #12131a !important;
+}
+
+/* Body/paragraph text — dark gray, not black (easier to read) */
+body.light-mode p,
+body.light-mode li,
+body.light-mode td,
+body.light-mode h5 {
+  color: #2e2f3a !important;
+}
+
+/* Top bar */
+body.light-mode .topbar {
+  background: rgba(255,255,255,0.9) !important;
+  border-bottom-color: rgba(0,0,0,0.1) !important;
+}
+body.light-mode .topbar__title { color: #12131a !important; }
+body.light-mode .topbar__source { color: #4b4d5c !important; }
+body.light-mode .btn {
+  background: #ffffff !important;
+  color: #2e2f3a !important;
+  border-color: rgba(0,0,0,0.15) !important;
+}
+body.light-mode .btn:hover {
+  color: #b8790a !important;
+  border-color: #b8790a !important;
+}
+
+/* KPI row */
+body.light-mode .kpis {
+  background: #d8dade !important;
+  border-color: rgba(0,0,0,0.1) !important;
+}
+body.light-mode .kpi {
+  background: #ffffff !important;
+}
+body.light-mode .kpi__label,
+body.light-mode .kpi__hint {
+  color: #4b4d5c !important;
+}
+body.light-mode .kpi__value {
+  color: #b8790a !important;
+  text-shadow: none !important;
+}
+
+/* Panels / cards */
+body.light-mode .panel,
+body.light-mode [class*="panel"] {
+  background: #ffffff !important;
+  border-color: rgba(0,0,0,0.1) !important;
+  color: #1a1a2e !important;
+}
+body.light-mode .panel__head {
+  border-bottom-color: rgba(0,0,0,0.1) !important;
+}
+body.light-mode .panel__tag {
+  color: #4b4d5c !important;
+}
+
+/* Hero */
+body.light-mode .hero__eyebrow { color: #0e8a78 !important; }
+body.light-mode .hero__sub { color: #4b4d5c !important; }
+
+/* Heatmap */
+body.light-mode .heatmap-cell {
+  background: #eceef1 !important;
+}
+body.light-mode .heatmap-cell[data-level="0"] {
+  background: #eceef1 !important;
+}
+body.light-mode .heatmap-rowlabel,
+body.light-mode .heatmap-collabel {
+  color: #4b4d5c !important;
+}
+body.light-mode .heatmap__legend {
+  color: #4b4d5c !important;
+}
+
+/* Path list */
+body.light-mode .pathlist .idx { color: #4b4d5c !important; }
+body.light-mode .pathlist .path { color: #1a1a2e !important; }
+body.light-mode .pathlist .bar { background: #e2e4e8 !important; }
+
+/* Status rows */
+body.light-mode .statusrow .track {
+  background: #eceef1 !important;
+  border-color: rgba(0,0,0,0.1) !important;
+}
+body.light-mode .statusrow .pct { color: #4b4d5c !important; }
+
+/* About section */
+body.light-mode .about { border-top-color: rgba(0,0,0,0.1) !important; }
+body.light-mode .about__grid p { color: #4b4d5c !important; }
+body.light-mode .about__note { color: #4b4d5c !important; }
+
+/* Footer */
+body.light-mode .footer {
+  color: #4b4d5c !important;
+  border-top-color: rgba(0,0,0,0.1) !important;
+}
+
+/* Scanlines look odd on light background — soften them */
+body.light-mode .scanlines {
+  opacity: 0.4;
 }
