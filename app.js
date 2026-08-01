@@ -12,17 +12,12 @@
   if (saved === 'light') {
     body.classList.add('light-mode');
     toggleBtn.textContent = '☀️';
-    document.documentElement.style.colorScheme = 'light';
-  } else {
-    toggleBtn.textContent = '🌙';
-    document.documentElement.style.colorScheme = 'dark';
   }
 
   toggleBtn.addEventListener('click', () => {
     const isLight = body.classList.toggle('light-mode');
     toggleBtn.textContent = isLight ? '☀️' : '🌙';
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
-    document.documentElement.style.colorScheme = isLight ? 'light' : 'dark';
     updateChartsForTheme();
   });
 })();
@@ -360,7 +355,6 @@ function renderAll(data) {
   renderHeatmap(data);
   renderTopPaths(data);
   renderStatusCodes(data);
-  updateChartsForTheme();
 }
 
 function escapeHtml(str) {
@@ -420,7 +414,8 @@ function updateChartsForTheme() {
   const textColor = getChartTextColor();
   const gridColor = getGridColor();
 
-  [hourlyChart, weekdayChart].forEach(chart => {
+  // Repeat this for each Chart.js instance you have (e.g. hourChart, weekdayChart)
+  [hourChart, weekdayChart].forEach(chart => {
     if (!chart) return;
     chart.options.scales.x.ticks.color = textColor;
     chart.options.scales.y.ticks.color = textColor;
