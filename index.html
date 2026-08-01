@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="dark light">
 <title>TRAFFIC/PATTERN.DASH - Website Traffic Pattern Dashboard</title>
 <meta name="description" content="Analyze web server logs to find peak traffic hours and busiest days of the week.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +11,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<button id="theme-toggle" aria-label="Toggle light/dark mode"></button>
+<button id="theme-toggle" aria-label="Toggle light/dark mode">🌙</button>
 <div class="scanlines" aria-hidden="true"></div>
 
 <header class="topbar">
@@ -171,7 +170,7 @@ HTTP Status Code 500 (Internal Server Error) means that the server encountered a
   (function () {
     const btn = document.getElementById('downloadSnapshotBtn');
     const btnLabel = document.getElementById('downloadSnapshotBtnLabel');
-    const target = document.getElementById('dashboardCapture');
+    const target = document.getElementById('dashboardCapture'); 
 
     if (!btn || !target) return;
 
