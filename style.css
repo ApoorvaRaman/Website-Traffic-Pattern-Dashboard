@@ -515,3 +515,87 @@ a { color: var(--cyan); }
   .wrap { padding: 0 16px 40px; }
   .hero { padding: 36px 0 24px; }
 }
+
+/* ============================================================
+   LIGHT MODE — READABILITY FIX
+   ============================================================ */
+
+/* Keep the dark top navigation, but make its text readable */
+body.light-mode .topbar {
+  color: #E8EDF2;
+}
+
+body.light-mode .topbar__title {
+  color: #E8EDF2 !important;
+}
+
+body.light-mode .topbar__source {
+  color: #AEB8C2 !important;
+}
+
+/* Main panel headings */
+body.light-mode .panel__head h2 {
+  color: #12131a !important;
+}
+
+/* Small text beside panel headings */
+body.light-mode .panel__tag {
+  color: #555866 !important;
+}
+
+/* Top requested paths */
+body.light-mode .pathlist .idx {
+  color: #666974 !important;
+}
+
+body.light-mode .pathlist .path {
+  color: #242630 !important;
+}
+
+body.light-mode .pathlist .count {
+  color: #17695f !important;
+}
+
+/* Status-code percentages */
+body.light-mode .statusrow .pct {
+  color: #555866 !important;
+}
+
+/* Heatmap labels */
+body.light-mode .heatmap-rowlabel,
+body.light-mode .heatmap-collabel {
+  color: #555866 !important;
+}
+
+body.light-mode .heatmap__legend {
+  color: #555866 !important;
+}
+
+/* KPI labels/hints */
+body.light-mode .kpi__label,
+body.light-mode .kpi__hint {
+  color: #555866 !important;
+}
+
+/* General muted text */
+body.light-mode .about__grid p {
+  color: #3f414b !important;
+}
+
+body.light-mode .about__note,
+body.light-mode .footer {
+  color: #555866 !important;
+}
+
+/* Buttons in the dark topbar */
+body.light-mode .topbar .btn {
+  color: #DDE3E8 !important;
+}
+
+body.light-mode .topbar .btn--outline {
+  color: #AEB8C2 !important;
+}
+
+body.light-mode .topbar .btn:hover {
+  color: var(--amber) !important;
+}
