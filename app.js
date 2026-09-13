@@ -407,15 +407,15 @@ function getChartTextColor() {
 }
 
 function getGridColor() {
-  return document.body.classList.contains('light-mode') ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  return document.body.classList.contains('light-mode') ? 'rgba(0,0,0,0.035)' : 'rgba(255,255,255,0.08)';
 }
 
 function updateChartsForTheme() {
   const textColor = getChartTextColor();
   const gridColor = getGridColor();
 
-  // Repeat this for each Chart.js instance you have (e.g. hourChart, weekdayChart)
-  [hourChart, weekdayChart].forEach(chart => {
+  // Repeat this for each Chart.js instance you have
+  [hourlyChart, weekdayChart].forEach(chart => {
     if (!chart) return;
     chart.options.scales.x.ticks.color = textColor;
     chart.options.scales.y.ticks.color = textColor;
