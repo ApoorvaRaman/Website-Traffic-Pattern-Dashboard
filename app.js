@@ -193,8 +193,8 @@ function renderHourlyChart(data) {
         },
       },
       scales: {
-        x: { grid: { color: "#1E2A36" }, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } },
-        y: { grid: { color: "#1E2A36" }, beginAtZero: true },
+        x: { grid: { color: getGridColor() }, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } },
+        y: { grid: { color: getGridColor() }, beginAtZero: true },
       },
     },
   });
@@ -229,7 +229,7 @@ function renderWeekdayChart(data) {
       },
       scales: {
         x: { grid: { display: false } },
-        y: { grid: { color: "#1E2A36" }, beginAtZero: true },
+        y: { grid: { color: getGridColor() }, beginAtZero: true },
       },
     },
   });
@@ -407,7 +407,7 @@ function getChartTextColor() {
 }
 
 function getGridColor() {
-  return document.body.classList.contains('light-mode') ? 'rgba(0,0,0,0.035)' : 'rgba(255,255,255,0.08)';
+  return document.body.classList.contains('light-mode') ? 'transparent' : 'rgba(255,255,255,0.08)';
 }
 
 function updateChartsForTheme() {
