@@ -531,3 +531,7 @@ body.light-mode .panel__tag {
 body.light-mode .topbar__title {
   color: #E8EDF2 !important;
 }
+
+body.light-mode .kpi__hint {
+  color: #4b4d5c !important;
+}
