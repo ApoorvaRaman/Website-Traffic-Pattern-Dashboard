@@ -64,6 +64,15 @@ body.light-mode [class*="panel"] {
   color: #1a1a2e !important;
 }
 
+/* Cyan-colored text (e.g. #5EEAD4) reads as light/washed-out green on the
+   light background and is hard to read — swap it to near-black in light mode.
+   Non-text uses of cyan (bars, heatmap scale, chart bars) are left alone. */
+body.light-mode .hero__eyebrow,
+body.light-mode .pathlist .count,
+body.light-mode .statusrow .code[data-class="2"] {
+  color: #12131a !important;
+}
+
 :root {
   --bg: #0A0E12;
   --bg-panel: #121922;
