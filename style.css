@@ -599,3 +599,7 @@ body.light-mode .topbar .btn--outline {
 body.light-mode .topbar .btn:hover {
   color: var(--amber) !important;
 }
+
+.recharts-cartesian-grid {
+  display: none !important;
+}
